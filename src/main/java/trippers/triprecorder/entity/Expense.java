@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,19 +20,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "exp")
+@Table(name = "expense")
 @Getter
 @Setter
 @ToString(exclude = { "card", "trip", "sns" })
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExpVO {
+public class Expense {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long expNo;
+	private Long id;
 	@Column(nullable = false)
-	private String expTitle;
+	private String expenseName;
 	@ManyToOne
 	@JoinColumn(name = "card_no")
 	private CardVO card; // null 처리 백엔드에서 필요
@@ -45,15 +43,15 @@ public class ExpVO {
 	@JoinColumn(name = "sns_no")
 	private SnsVO sns; // null 처리 백엔드에서 필요
 	@Column(nullable = false)
-	private String expPlace;
+	private String place;
 	@Column(nullable = false)
-	private String expAddress;
+	private String address;
 	@Column(nullable = false)
-	private Long expMoney;
+	private Long money;
 	@Column(nullable = false)
-	private Timestamp expTime;
+	private Timestamp time;
 	@Column(nullable = false)
-	private String expWay;
+	private String paymentMethod;
 	@Column(nullable = false)
-	private String expCate;
+	private String category;
 }
