@@ -23,8 +23,7 @@ public class ExpenseController {
 	// 경비등록
 	@PostMapping("/register")
 	public String ocr(@RequestBody ExpenseDTO expenseDTO) throws JsonProcessingException {
-		expenseService.saveExpense(expenseDTO.getTrip().getTripNo(), expenseDTO.getSns().getSnsNo(), expenseDTO.getCard().getCardNo());
-		return "OK";
+		return expenseService.saveExpense(expenseDTO.getTrip().getTripNo(), expenseDTO.getSns().getSnsNo(), expenseDTO.getCard().getCardNo());
 	}
 
 	// 연결된 게시글이 없는 경비 조회
