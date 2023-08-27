@@ -12,18 +12,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "follow")
 @Getter
-@Setter
-@ToString(exclude = { "follower", "following" })
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class FollowVO {
+@Entity
+@Table(name = "follow")
+@ToString(exclude = { "follower", "following" })
+public class Follow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long followNo;

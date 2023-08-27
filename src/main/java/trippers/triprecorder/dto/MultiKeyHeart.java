@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MultiKey implements Serializable{
+public class MultiKeyHeart implements Serializable{
 	// 중복키
 	private Long user;
 	private Long sns;
