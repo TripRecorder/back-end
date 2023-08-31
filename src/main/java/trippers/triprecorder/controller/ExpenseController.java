@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -18,19 +15,19 @@ import trippers.triprecorder.service.ExpenseService;
 @RequiredArgsConstructor
 @RequestMapping("/expense")
 public class ExpenseController {
-	ExpenseService expenseService;
+	private final ExpenseService expenseService;
 
 	// 경비등록
 	@PostMapping("/register")
-	public String ocr(@RequestBody ExpenseDTO expenseDTO) throws JsonProcessingException {
-		return expenseService.saveExpense(expenseDTO.getTrip().getTripNo(), expenseDTO.getSns().getSnsNo(), expenseDTO.getCard().getCardNo());
+	public String expenseRegister(@RequestBody ExpenseDTO expenseDTO) { // DTO를 한 번에 호출하지 말고 DTO를 한번에 넣어주기
+		return expenseService.saveExpense(expenseDTO);
 	}
 
 	// 연결된 게시글이 없는 경비 조회
-//	@PostMapping("/list/{tripNo}")
-//	public List<JSONObject> postExpList(@PathVariable Long tripNo) {
-//		TripVO trip = trepo.findById(tripNo).orElse(null);
-//		List<Expense> tmpExpList = erepo.findByTripAndSnsNullOrderByExpNoDesc(trip);
+	@GetMapping("/notConnectSns/{tripNo}")//주소 수정 getMapping으로 바꾸기 함수 메서드 수정
+	public List<ExpenseDTO> notConnectSnsAndExpenseLists(@PathVariable Long tripNo) {
+		//TripVO trip = trepo.findById(tripNo).orElse(null);
+	//	List<Expense> tmpExpList = erepo.findByTripAndSnsNullOrderByExpNoDesc(trip);
 //
 //		List<JSONObject> expList = new ArrayList<>();
 //		tmpExpList.forEach(exp -> {
@@ -39,9 +36,9 @@ public class ExpenseController {
 //			obj.put("expTitle", exp.getExpenseName());
 //			expList.add(obj);
 //		});
-//
-//		return expList;
-//	}
+
+		return expenseService.findExpenseList(tripNo);
+	}
 //
 //	// 게시글과 연동된 경비 정보
 //	@PostMapping("/sns/{expNo}")
