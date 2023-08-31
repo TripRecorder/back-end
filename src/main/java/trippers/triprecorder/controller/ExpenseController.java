@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import trippers.triprecorder.dto.ExpenseDTO;
+import trippers.triprecorder.dto.ExpenseListDTO;
+import trippers.triprecorder.entity.TripVO;
+import trippers.triprecorder.repository.ExpenseRepository;
+import trippers.triprecorder.repository.TripRepository;
 import trippers.triprecorder.service.ExpenseService;
 
 @RestController
@@ -16,6 +21,9 @@ import trippers.triprecorder.service.ExpenseService;
 @RequestMapping("/expense")
 public class ExpenseController {
 	private final ExpenseService expenseService;
+
+	private final TripRepository tripRepository;
+	private final ExpenseRepository expenseRepository;
 
 	// 경비등록
 	@PostMapping("/register")
@@ -55,32 +63,10 @@ public class ExpenseController {
 //	}
 //
 //	// 경비 리스트
-//	@GetMapping("/{tripNo}/list")
-//	public JSONObject getExpList(@PathVariable Long tripNo) {
-//		TripVO trip = trepo.findById(tripNo).orElse(null);
-//		List<Expense> tmpExp = erepo.findByTrip(trip, Sort.by("expTime"));
-//
-//		List<ExpSimpleDto> expList = new ArrayList<>();
-//		Long tripExp = trepo.findById(tripNo).orElse(null).getTripExp();
-//		Long useExp = 0L;
-//
-//		for (int i = 0; i < tmpExp.size(); i++) {
-//			Expense exp = tmpExp.get(i);
-//
-//			ExpSimpleDto e = ExpSimpleDto.builder().expNo(exp.getExpNo()).expTitle(exp.getExpTitle())
-//					.expPlace(exp.getExpPlace()).expMoney(exp.getExpMoney()).expTime(exp.getExpTime()).build();
-//
-//			expList.add(e);
-//			useExp += exp.getExpMoney();
-//		}
-//
-//		JSONObject expObj = new JSONObject();
-//		expObj.put("tripExp", tripExp);
-//		expObj.put("useExp", useExp);
-//		expObj.put("remainExp", (tripExp - useExp));
-//		expObj.put("exp", expList);
-//		return expObj;
-//	}
+	@GetMapping("/{tripNo}/list")
+	public ExpenseListDTO seeExpenseList(@PathVariable Long tripNo) {
+		return expenseService.seeExpenseList(tripNo);
+	}
 //
 //	// 경비 상세보기
 //	@GetMapping("/detail/{expNo}")
