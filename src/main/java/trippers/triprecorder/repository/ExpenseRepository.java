@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import trippers.triprecorder.dto.ExpenseDTO;
 import trippers.triprecorder.entity.Expense;
 import trippers.triprecorder.entity.TripVO;
 
 @Repository
-public interface ExpRepository extends JpaRepository<Expense, Long> {
+public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 	public Expense findByExpNo(Long expNo);
 
 	// 특정 여행(trip)에서 연동된 게시글이 없는 경비 리스트 (for. 게시글 등록)
@@ -25,5 +26,5 @@ public interface ExpRepository extends JpaRepository<Expense, Long> {
 	List<Object> findTop3CardNumbersByExpCate(@Param("category") String category);
 
 	// 카테고리 별 경비 불러오기
-	List<Expense> findByTrip(TripVO trip, Sort sort);
+	List<ExpenseDTO> findByTrip(TripVO trip, Sort sort);
 }
