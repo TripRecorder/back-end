@@ -20,7 +20,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "expense")
 @Getter
 @Setter
 @ToString(exclude = { "card", "trip", "sns" })
