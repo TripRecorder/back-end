@@ -25,7 +25,7 @@ import lombok.ToString;
 import trippers.triprecorder.dto.Role;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 @Getter
 @Setter
 @ToString(exclude = { "follower", "following", "trip", "reply", "heart" })
