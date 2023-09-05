@@ -42,7 +42,7 @@ public class AuthController {
 		String obj = request.getHeader("Authorization"); // ???
 		User findUser = null;
 		boolean result = true;
-		String userNick = user.getUserNick();
+		String userNick = user.getNickname();
 
 		if (!userNick.equals("")) {
 			if (obj != null) {
@@ -65,7 +65,7 @@ public class AuthController {
 		String obj = request.getHeader("Authorization");
 		User findUser = null;
 		boolean result = true;
-		String userEmail = user.getUserEmail();
+		String userEmail = user.getEmail();
 
 		if (!userEmail.equals("")) {
 			if (obj != null) {
@@ -85,7 +85,7 @@ public class AuthController {
 	public String join(@RequestBody User user) {
 		ProfileVO profile = ProfileVO.builder().build();
 		user.setProfile(profile);
-		user.setUserPw(EncodingUtil.encodingUserPw(user.getUserPw()));
+		user.setUserPw(EncodingUtil.encodingUserPw(user.getUserPwd()));
 		user.setUserRole(Role.ROLE_USER);
 		profile.setUser(user);
 
@@ -97,6 +97,6 @@ public class AuthController {
 	@PostMapping("/findByNick")
 	public Long getUserNoByNick(@RequestBody JSONObject obj) {
 		User user = urepo.findByUserNick(obj.get("nickname").toString());
-		return user.getUserNo();
+		return user.getId();
 	}
 }
