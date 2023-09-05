@@ -37,7 +37,7 @@ public class TripVO {
 	private Long tripNo;
 	@ManyToOne
 	@JoinColumn(name = "user_no")
-	private UserVO user;
+	private User user;
 	@Column(nullable = false)
 	private String tripName;
 	@Column(nullable = false)

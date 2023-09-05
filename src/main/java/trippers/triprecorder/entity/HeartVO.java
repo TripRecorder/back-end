@@ -26,7 +26,7 @@ public class HeartVO {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "user_no")
-	private UserVO user;
+	private User user;
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "sns_no")

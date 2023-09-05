@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import trippers.triprecorder.entity.ExpVO;
 import trippers.triprecorder.entity.SnsVO;
 import trippers.triprecorder.entity.TripVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.ExpRepository;
 import trippers.triprecorder.repository.SnsRepository;
 import trippers.triprecorder.repository.TripRepository;
@@ -46,7 +46,7 @@ public class TripController {
 		Long userNo = EncodingUtil.getUserNo(request);
 //		Long userNo = 1L;
 
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 		trip.setUser(user);
 
 		trepo.save(trip);
@@ -57,7 +57,7 @@ public class TripController {
 	@GetMapping("/list/{userNo}")
 	public List<JSONObject> getTripList(@PathVariable Long userNo) {
 		List<JSONObject> tripList = new ArrayList<>();
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 
 		trepo.findByUser(user, Sort.by(Direction.DESC, "tripNo")).forEach(trip -> {
 			JSONObject obj = new JSONObject();

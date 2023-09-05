@@ -10,7 +10,7 @@ import trippers.triprecorder.dto.UserSimpleDto;
 import trippers.triprecorder.entity.HashtagVO;
 import trippers.triprecorder.entity.ReplyVO;
 import trippers.triprecorder.entity.SnsVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.HashtagRepository;
 import trippers.triprecorder.repository.HeartRepository;
 import trippers.triprecorder.repository.ReplyRepository;
@@ -45,7 +45,7 @@ public class MakeSnsUtil {
 
 	// 작성자 가져오기
 	public static UserSimpleDto getAnyUser(Long userNo, UserRepository urepo) {
-		UserVO tmpUser = urepo.findById(userNo).orElse(null);
+		User tmpUser = urepo.findById(userNo).orElse(null);
 
 		UserSimpleDto user = UserSimpleDto.builder().userNo(tmpUser.getUserNo()).userNick(tmpUser.getUserNick())
 				.userProfile(AwsUtil.getImageURL(tmpUser.getProfile().getProfilePhoto())).build();

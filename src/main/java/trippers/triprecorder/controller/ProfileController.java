@@ -18,7 +18,7 @@ import trippers.triprecorder.dto.ProfileDto;
 import trippers.triprecorder.dto.ProfileUpdateDto;
 import trippers.triprecorder.dto.UserSimpleDto;
 import trippers.triprecorder.entity.ProfileVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.FollowRepository;
 import trippers.triprecorder.repository.ProfileRepository;
 import trippers.triprecorder.repository.UserRepository;
@@ -39,7 +39,7 @@ public class ProfileController {
 	@GetMapping("/{userNo}")
 	public ProfileDto getUserProfile(HttpServletRequest request, @PathVariable Long userNo) {
 		String obj = request.getHeader("Authorization");
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 		Integer following = frepo.findByFollower(user).size();
 		Integer follower = frepo.findByFollowing(user).size();
 		// 팔로잉하지 않은 상태
@@ -66,7 +66,7 @@ public class ProfileController {
 	// 페이지 진입시 회원정보 조회
 	@GetMapping("/update/{userNo}")
 	public ProfileUpdateDto getUserProfileForUpdate(HttpServletRequest request, @PathVariable Long userNo) {
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 		ProfileVO profile = prepo.findById(userNo).orElse(null);
 
 		ProfileUpdateDto updateProfile = ProfileUpdateDto.builder().userName(user.getUserName())
@@ -82,10 +82,10 @@ public class ProfileController {
 	public UserSimpleDto putUserProfileForUpdate(@RequestBody ObjectNode obj) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 
-		UserVO user = mapper.treeToValue(obj.get("user"), UserVO.class);
+		User user = mapper.treeToValue(obj.get("user"), User.class);
 		ProfileVO tmpProfile = mapper.treeToValue(obj.get("profile"), ProfileVO.class);
 
-		UserVO tmpUser = urepo.findById(user.getUserNo()).orElse(null);
+		User tmpUser = urepo.findById(user.getUserNo()).orElse(null);
 		ProfileVO profile = prepo.findById(tmpUser.getUserNo()).orElse(null);
 
 		if (!user.getUserName().equals("")) {
@@ -119,7 +119,7 @@ public class ProfileController {
 
 		tmpUser.setProfile(profile);
 
-		UserVO savedUser = urepo.save(tmpUser);
+		User savedUser = urepo.save(tmpUser);
 
 		UserSimpleDto newUser = UserSimpleDto.builder().userNo(savedUser.getUserNo()).userNick(savedUser.getUserNick())
 				.userId(savedUser.getUserId())

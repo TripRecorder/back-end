@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import trippers.triprecorder.dto.Role;
 import trippers.triprecorder.entity.ProfileVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.UserRepository;
 import trippers.triprecorder.util.EncodingUtil;
 
@@ -20,16 +20,16 @@ import trippers.triprecorder.util.EncodingUtil;
 @RequestMapping("/auth")
 public class AuthController {
 	@Autowired
-	private UserRepository urepo;
+	private UserRepository urepo; //userRepository
 
 	// 회원가입 - 아이디 중복 체크
 	// 중복이다 - true, 중복이 아니다 - false
-	@PostMapping(value = "/signup/useridCheck")
-	public boolean postUseridCheck(@RequestBody UserVO user) {
+	@PostMapping(value = "/signup/useridCheck") //get으로 변경
+	public boolean postUseridCheck(@RequestBody User user) { // checkUserId
 		boolean result = true;
-		String userId = user.getUserId();
+		String userId = user.getUserId(); // 처음부터 파라미터를 id로 받기
 		if (!userId.equals("")) {
-			UserVO findUser = urepo.findByUserId(userId);
+			User findUser = urepo.findByUserId(userId);
 			result = findUser != null;
 		}
 		return result;
@@ -38,9 +38,9 @@ public class AuthController {
 	// 회원가입 - 닉네임 중복 체크
 	// 중복이다 - true, 중복이 아니다 - false
 	@PostMapping(value = "/signup/usernickCheck")
-	public boolean postUsernickCheck(HttpServletRequest request, @RequestBody UserVO user) {
-		String obj = request.getHeader("Authorization");
-		UserVO findUser = null;
+	public boolean postUsernickCheck(HttpServletRequest request, @RequestBody User user) {
+		String obj = request.getHeader("Authorization"); // ???
+		User findUser = null;
 		boolean result = true;
 		String userNick = user.getUserNick();
 
@@ -61,9 +61,9 @@ public class AuthController {
 	// 회원가입 - 이메일 중복 체크
 	// 중복이다 - true, 중복이 아니다 - false
 	@PostMapping(value = "/signup/useremailCheck")
-	public boolean postUseremailCheck(HttpServletRequest request, @RequestBody UserVO user) {
+	public boolean postUseremailCheck(HttpServletRequest request, @RequestBody User user) {
 		String obj = request.getHeader("Authorization");
-		UserVO findUser = null;
+		User findUser = null;
 		boolean result = true;
 		String userEmail = user.getUserEmail();
 
@@ -82,7 +82,7 @@ public class AuthController {
 
 	// 회원가입
 	@PostMapping("/signup")
-	public String join(@RequestBody UserVO user) {
+	public String join(@RequestBody User user) {
 		ProfileVO profile = ProfileVO.builder().build();
 		user.setProfile(profile);
 		user.setUserPw(EncodingUtil.encodingUserPw(user.getUserPw()));
@@ -96,7 +96,7 @@ public class AuthController {
 	// 닉네임으로 유저 찾기
 	@PostMapping("/findByNick")
 	public Long getUserNoByNick(@RequestBody JSONObject obj) {
-		UserVO user = urepo.findByUserNick(obj.get("nickname").toString());
+		User user = urepo.findByUserNick(obj.get("nickname").toString());
 		return user.getUserNo();
 	}
 }

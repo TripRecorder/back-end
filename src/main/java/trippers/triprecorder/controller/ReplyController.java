@@ -2,7 +2,6 @@ package trippers.triprecorder.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,7 @@ import trippers.triprecorder.dto.ReplyDto;
 import trippers.triprecorder.dto.UserSimpleDto;
 import trippers.triprecorder.entity.ProfileVO;
 import trippers.triprecorder.entity.ReplyVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.ProfileRepository;
 import trippers.triprecorder.repository.ReplyRepository;
 import trippers.triprecorder.repository.SnsRepository;
@@ -40,7 +39,7 @@ public class ReplyController {
 	public ReplyDto postRegisterReply(HttpServletRequest request, @RequestBody ReplyVO reply,
 			@PathVariable Long snsNo) {
 		Long userNo = EncodingUtil.getUserNo(request);
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 		reply.setUser(user);
 		reply.setSns(srepo.findById(snsNo).orElse(null));
 		ReplyVO savedReply = rrepo.save(reply);

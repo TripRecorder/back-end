@@ -8,14 +8,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 
 @Data
 public class PrincipalDetails implements UserDetails {
 // 로그인 정보
-	private UserVO user;
+	private User user;
 
-	public PrincipalDetails(UserVO user) {
+	public PrincipalDetails(User user) {
 		this.user = user;
 	}
 

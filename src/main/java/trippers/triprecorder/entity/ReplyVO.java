@@ -34,7 +34,7 @@ public class ReplyVO {
 	private Long replyNo;
 	@ManyToOne
 	@JoinColumn(name = "user_no")
-	private UserVO user;
+	private User user;
 	@ManyToOne
 	@JoinColumn(name = "sns_no")
 	private SnsVO sns;

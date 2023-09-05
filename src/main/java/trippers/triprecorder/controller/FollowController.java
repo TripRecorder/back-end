@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import trippers.triprecorder.dto.UserSimpleDto;
 import trippers.triprecorder.entity.FollowVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.FollowRepository;
 import trippers.triprecorder.repository.UserRepository;
 import trippers.triprecorder.util.AwsUtil;
@@ -34,8 +34,8 @@ public class FollowController {
 		Long followerNo = EncodingUtil.getUserNo(request);
 		boolean result = true;
 
-		UserVO follower = urepo.findById(followerNo).orElse(null);
-		UserVO following = urepo.findById(userNo).orElse(null);
+		User follower = urepo.findById(followerNo).orElse(null);
+		User following = urepo.findById(userNo).orElse(null);
 
 		FollowVO follow = frepo.findByFollowerAndFollowing(follower, following);
 
@@ -52,13 +52,13 @@ public class FollowController {
 	// 사용자의 팔로워 리스트
 	@GetMapping("/{userNo}/follower/list")
 	public List<UserSimpleDto> getFollowerList(@PathVariable Long userNo) {
-		UserVO tmpFollowing = urepo.findById(userNo).orElse(null);
+		User tmpFollowing = urepo.findById(userNo).orElse(null);
 		List<FollowVO> tmpFollowingList = frepo.findByFollowing(tmpFollowing);
 
 		List<UserSimpleDto> followingList = new ArrayList<>();
 
 		tmpFollowingList.forEach(following -> {
-			UserVO tmpUser = following.getFollower();
+			User tmpUser = following.getFollower();
 			UserSimpleDto user = UserSimpleDto.builder().userNo(tmpUser.getUserNo()).userNick(tmpUser.getUserNick())
 					.userId(tmpUser.getUserId())
 					.userProfile(AwsUtil.getImageURL(tmpUser.getProfile().getProfilePhoto())).build();
@@ -71,13 +71,13 @@ public class FollowController {
 	// 사용자의 팔로잉 리스트
 	@GetMapping("/{userNo}/following/list")
 	public List<UserSimpleDto> getFollowingList(@PathVariable Long userNo) {
-		UserVO tmpFollower = urepo.findById(userNo).orElse(null);
+		User tmpFollower = urepo.findById(userNo).orElse(null);
 		List<FollowVO> tmpFollowerList = frepo.findByFollower(tmpFollower);
 
 		List<UserSimpleDto> followerList = new ArrayList<>();
 
 		tmpFollowerList.forEach(follower -> {
-			UserVO tmpUser = follower.getFollowing();
+			User tmpUser = follower.getFollowing();
 			UserSimpleDto user = UserSimpleDto.builder().userNo(tmpUser.getUserNo()).userNick(tmpUser.getUserNick())
 					.userId(tmpUser.getUserId())
 					.userProfile(AwsUtil.getImageURL(tmpUser.getProfile().getProfilePhoto())).build();

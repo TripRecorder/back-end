@@ -2,8 +2,6 @@ package trippers.triprecorder.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -32,7 +30,7 @@ public class ProfileVO {
 	@MapsId
 	@OneToOne
 	@JoinColumn(name = "user_no")
-	UserVO user;
+    User user;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR(255) default 'profile/default_profile.png'")
 	@Builder.Default

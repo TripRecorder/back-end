@@ -31,11 +31,11 @@ public class FollowVO {
 	// 팔로워 (follow를 누른 사람)
 	@ManyToOne
 	@JoinColumn(name = "follower")
-	private UserVO follower;
+	private User follower;
 
 	// 팔로우 (follow를 받은 사람)
 	@ManyToOne
 	@JoinColumn(name = "following")
-	private UserVO following;
+	private User following;
 
 }

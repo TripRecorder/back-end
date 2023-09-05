@@ -32,7 +32,7 @@ import trippers.triprecorder.dto.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserVO {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userNo;

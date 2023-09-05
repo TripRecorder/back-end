@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.UserRepository;
 
 @Service
@@ -16,7 +16,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		UserVO userEntity = userRepository.findByUserId(userId);
+		User userEntity = userRepository.findByUserId(userId);
 		return new PrincipalDetails(userEntity);
 	}
 

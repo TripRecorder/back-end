@@ -18,7 +18,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import lombok.extern.java.Log;
 import trippers.triprecorder.config.auth.PrincipalDetails;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.UserRepository;
 
 @Log
@@ -48,7 +48,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				.asString();
 
 		if (userid != null) {
-			UserVO userEntity = urepo.findByUserId(userid);
+			User userEntity = urepo.findByUserId(userid);
 			PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
 
 			Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,

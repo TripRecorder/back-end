@@ -19,7 +19,7 @@ import trippers.triprecorder.dto.UserSimpleDto;
 import trippers.triprecorder.entity.HashtagVO;
 import trippers.triprecorder.entity.SnsVO;
 import trippers.triprecorder.entity.TripVO;
-import trippers.triprecorder.entity.UserVO;
+import trippers.triprecorder.entity.User;
 import trippers.triprecorder.repository.HashtagRepository;
 import trippers.triprecorder.repository.HeartRepository;
 import trippers.triprecorder.repository.ReplyRepository;
@@ -83,7 +83,7 @@ public class SearchController {
 	// 닉네임 검색
 	@PostMapping("/nickname")
 	public List<UserSimpleDto> postSearchNickname(@RequestBody JSONObject obj) {
-		List<UserVO> tmpUserList = urepo.findByUserNickContaining(obj.get("search").toString());
+		List<User> tmpUserList = urepo.findByUserNickContaining(obj.get("search").toString());
 		List<UserSimpleDto> userList = new ArrayList<>();
 
 		tmpUserList.forEach(user -> {
@@ -101,7 +101,7 @@ public class SearchController {
 	@GetMapping("/data/{userNo}")
 	public JSONObject getNumOfData(@PathVariable Long userNo) {
 		JSONObject obj = new JSONObject();
-		UserVO user = urepo.findById(userNo).orElse(null);
+		User user = urepo.findById(userNo).orElse(null);
 		List<TripVO> trip = trepo.findByUser(user);
 		int sns = 0;
 		for (int i = 0; i < trip.size(); i++) {
