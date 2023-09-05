@@ -36,32 +36,32 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userNo;
+	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String userId;
 
 	@Column(nullable = false)
-	private String userPw;
+	private String userPwd;
 
 	@Column(nullable = false)
 	private String userName;
 
 	@Column(nullable = false, unique = true)
-	private String userNick;
+	private String nickname;
 
 	@Column(nullable = false, unique = true)
-	private String userEmail;
+	private String email;
 
 	@Column(nullable = false)
-	private String userGender;
+	private String gender;
 
 	@Builder.Default
 	@Column(columnDefinition = "VARCHAR(255) default '브론즈'")
-	private String userLevel = "브론즈";
+	private String level = "브론즈";
 
 	@Enumerated(EnumType.STRING)
-	private Role userRole;
+	private Role role;
 
 	// 프로필
 	@JsonIgnore
@@ -90,5 +90,5 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<HeartVO> heart;
-	
+
 }
