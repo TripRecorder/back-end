@@ -16,22 +16,17 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import trippers.triprecorder.dto.Role;
 
 @Entity
 @Table(name = "USER")
 @Getter
-@Setter
 @ToString(exclude = { "follower", "following", "trip", "reply", "heart" })
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User {
 
 	@Id
