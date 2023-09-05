@@ -33,24 +33,33 @@ import trippers.triprecorder.dto.Role;
 @AllArgsConstructor
 @Builder
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userNo;
+
 	@Column(nullable = false, unique = true)
 	private String userId;
+
 	@Column(nullable = false)
 	private String userPw;
+
 	@Column(nullable = false)
 	private String userName;
+
 	@Column(nullable = false, unique = true)
 	private String userNick;
+
 	@Column(nullable = false, unique = true)
 	private String userEmail;
+
 	@Column(nullable = false)
 	private String userGender;
+
 	@Builder.Default
 	@Column(columnDefinition = "VARCHAR(255) default '브론즈'")
 	private String userLevel = "브론즈";
+
 	@Enumerated(EnumType.STRING)
 	private Role userRole;
 
@@ -81,4 +90,5 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<HeartVO> heart;
+	
 }
