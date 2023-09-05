@@ -2,8 +2,8 @@ package trippers.triprecorder.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +18,10 @@ import trippers.triprecorder.util.EncodingUtil;
 // 회원
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
-	@Autowired
-	private UserRepository urepo; //userRepository
+
+	private final UserRepository userRepository;
 
 	// 회원가입 - 아이디 중복 체크
 	// 중복이다 - true, 중복이 아니다 - false
