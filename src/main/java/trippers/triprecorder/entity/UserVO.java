@@ -62,10 +62,10 @@ public class UserVO {
 	// 팔로워
 	@JsonIgnore
 	@OneToMany(mappedBy = "follower", cascade = CascadeType.ALL)
-	private List<FollowVO> follower;
+	private List<Follow> follower;
 	@JsonIgnore
 	@OneToMany(mappedBy = "following", cascade = CascadeType.ALL)
-	private List<FollowVO> following;
+	private List<Follow> following;
 
 	// 여행
 	@JsonIgnore
@@ -80,5 +80,5 @@ public class UserVO {
 	// 좋아요
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<HeartVO> heart;
+	private List<Heart> heart;
 }

@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import trippers.triprecorder.dto.MultiKey;
-import trippers.triprecorder.entity.HeartVO;
+import trippers.triprecorder.dto.MultiKeyHeart;
+import trippers.triprecorder.entity.Heart;
 import trippers.triprecorder.entity.SnsVO;
-import trippers.triprecorder.entity.UserVO;
 
-public interface HeartRepository extends JpaRepository<HeartVO, MultiKey> {
+public interface HeartRepository extends JpaRepository<Heart, MultiKeyHeart> {
 	// 특정 게시글에 해당하는 좋아요 리스트 (for. 게시글)
-	List<HeartVO> findBySns(SnsVO sns);
+	List<Heart> findBySns(SnsVO sns);
 }

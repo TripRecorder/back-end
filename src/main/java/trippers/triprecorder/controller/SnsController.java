@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FeaturePolicyConfig;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import trippers.triprecorder.dto.SnsDto;
 import trippers.triprecorder.entity.ExpVO;
-import trippers.triprecorder.entity.FollowVO;
+import trippers.triprecorder.entity.Follow;
 import trippers.triprecorder.entity.HashtagVO;
 import trippers.triprecorder.entity.SnsVO;
 import trippers.triprecorder.entity.TripVO;
@@ -104,7 +103,7 @@ public class SnsController {
 		if (obj != null) {
 			userNo = EncodingUtil.getUserNo(request);
 			UserVO user = urepo.findById(userNo).orElse(null);
-			List<FollowVO> following = frepo.findByFollower(user);
+			List<Follow> following = frepo.findByFollower(user);
 
 			List<TripVO> myTrip = trepo.findByUser(user);
 			List<TripVO> followingTrip = new ArrayList<>();
@@ -162,7 +161,7 @@ public class SnsController {
 			UserVO follower = urepo.findById(userNo).orElse(null);
 			UserVO following = urepo.findById(profileUserNo).orElse(null);
 
-			FollowVO follow = frepo.findByFollowerAndFollowing(follower, following);
+			Follow follow = frepo.findByFollowerAndFollowing(follower, following);
 			if (follow == null) {
 				scope = new Integer[] { 1 };
 			} else {

@@ -3,7 +3,7 @@ package trippers.triprecorder.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import trippers.triprecorder.dto.MultiKey;
+import trippers.triprecorder.dto.MultiKeyHeart;
 import trippers.triprecorder.dto.ReplyDto;
 import trippers.triprecorder.dto.SnsDto;
 import trippers.triprecorder.dto.UserSimpleDto;
@@ -69,7 +69,7 @@ public class MakeSnsUtil {
 
 	// 게시글 좋아요 여부 가져오기
 	public static boolean getSnsHeart(SnsVO sns, Long userNo, HeartRepository hrepo) {
-		MultiKey key = MultiKey.builder().sns(sns.getSnsNo()).user(userNo).build();
+		MultiKeyHeart key = MultiKeyHeart.builder().sns(sns.getSnsNo()).user(userNo).build();
 		return hrepo.findById(key).orElse(null) != null;
 	}
 

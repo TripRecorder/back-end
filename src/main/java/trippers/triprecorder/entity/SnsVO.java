@@ -59,7 +59,7 @@ public class SnsVO {
 	// 좋아요
 	@JsonIgnore
 	@OneToMany(mappedBy = "sns", cascade = CascadeType.ALL)
-	private List<HeartVO> heart;
+	private List<Heart> heart;
 
 	// 해시태그
 	@JsonIgnore
